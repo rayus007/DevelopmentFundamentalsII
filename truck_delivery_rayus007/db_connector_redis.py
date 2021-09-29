@@ -1,8 +1,7 @@
-import socket
-from truck_delivery_rayus007.util.configuration import Configuration
-
 import redis
 import json
+
+from truck_delivery_rayus007.util.configuration import Configuration
 from truck_delivery_rayus007.db_connector import DBConnector
 from truck_delivery_rayus007.util.custom_exceptions import DataNotAvailableException
 

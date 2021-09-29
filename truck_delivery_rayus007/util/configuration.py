@@ -1,5 +1,3 @@
-import yaml
-
 
 class Configuration:
 
@@ -15,10 +13,10 @@ class Configuration:
         }
         return config.get(key)
 
-    def get_from_file(self, key):
+    '''def get_from_file(self, key):
         with open('truck_delivery_rayus007/configuration.yml') as my_file:
             my_vars = yaml.load(my_file)
-            return my_vars.get(key)
+            return my_vars.get(key)'''
 
     def get_from_env(self):
         pass
