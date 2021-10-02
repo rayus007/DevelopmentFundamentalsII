@@ -73,7 +73,7 @@ jobs:
 #          --outdir dist/
 
       - name: Publish distribution to Test PyPI
-        #if: github.event_name == 'push'
+        if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
