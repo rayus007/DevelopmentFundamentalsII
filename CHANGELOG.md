@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+# [1.1.0](https://github.com/rayus007/DevelopmentFundamentalsII/compare/v1.0.1...v1.1.0) (2021-10-02)
+
+
+### Features
+
+* updated build file ([a90e1b0](https://github.com/rayus007/DevelopmentFundamentalsII/commit/a90e1b06582ad7a066d3ee7670edb2cbbe0996d5))
+
 ## [1.0.1](https://github.com/rayus007/DevelopmentFundamentalsII/compare/v1.0.0...v1.0.1) (2021-10-02)
 
 
