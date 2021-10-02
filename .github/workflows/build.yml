@@ -73,12 +73,13 @@ jobs:
 #          --outdir dist/
 
       - name: Publish distribution to Test PyPI
-        if: github.event_name == 'push'
+        #if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
           PYPI_REPO_URL: "https://test.pypi.org/legacy/"
-        run: npx semantic-release --debug --branches develop
+        run: npx semantic-release
+        #--debug --branches develop
 
 
 #      - name: Publish distribution to Test PyPI
