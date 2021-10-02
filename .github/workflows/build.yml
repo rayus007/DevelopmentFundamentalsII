@@ -81,8 +81,8 @@ jobs:
         run: npx semantic-release --debug --branches develop
 
 
-      - name: Publish distribution to Test PyPI
-        uses: pypa/gh-action-pypi-publish@master
-        with:
-          password: ${{ secrets.PYPI_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+#      - name: Publish distribution to Test PyPI
+#        uses: pypa/gh-action-pypi-publish@master
+#        with:
+#          password: ${{ secrets.PYPI_TOKEN }}
+#          repository_url: https://test.pypi.org/legacy/
