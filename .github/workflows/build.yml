@@ -26,6 +26,7 @@ jobs:
         run:
           pip install -r dev_requirements.txt
           pip install -r requirements.txt
+          pip install coveralls
 
       - name: Run tests
         run: pytest tests/unit/
@@ -39,6 +40,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Setup
+        run: npm install -g semantic-release @semantic-release/github @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/git @semantic-release/release-notes-generator semantic-release-pypi
 
       - name: Set up python
         uses: actions/setup-python@v2
@@ -63,5 +72,16 @@ jobs:
       - name: Publish distribution to Test PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
-          password: ${{ secrets.PYPI_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+          PYPI_REPO_URL: "https://test.pypi.org/legacy/"
+          run: npx semantic-release --debug --branches develop
+
+
+#      - name: Publish distribution to Test PyPI
+#        uses: pypa/gh-action-pypi-publish@master
+#        with:
+#          password: ${{ secrets.PYPI_TOKEN }}
+#          repository_url: https://test.pypi.org/legacy/
+#        run: npx semantic-release --debug --branches main
+
