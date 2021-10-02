@@ -24,7 +24,7 @@ def test_save_document_mock(fixture_db_connector):
 
 
 def test_get_by_id_mock(fixture_db_connector):
-    client_to_save = Client(111111, "Pepito1", "pepito1.perez@gmail.com", 70700000, "Cbba - Av. Heroinas", 111,
+    client_to_save = Client(111111, "Pepito1", "pepito1.perez@gmail.com", 70700000, "Cbba - Av. Heroinas001", 111,
                             1111111111).to_dict()
     id_test = client_to_save.get("ci")
     assert fixture_db_connector.save_document(id_test, client_to_save)
