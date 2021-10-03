@@ -6,6 +6,7 @@ from truck_delivery_rayus007.util.custom_exceptions import CustomException
 
 class ClientManager(ContentManager):
     """ Class representing a ClientManager """
+
     def __init__(self):
         super().__init__()
         self.connector = DbConnectorRedis()
@@ -28,4 +29,3 @@ class ClientManager(ContentManager):
 
     def delete(self, key):
         return self.connector.delete_by_id(f"{UID}_{CLIENT}_{key}")
-
