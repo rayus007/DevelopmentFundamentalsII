@@ -1,0 +1,88 @@
+name: build
+on:
+    push:
+      branches:
+        - develop
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ 3.6, 3.9 ]
+        os: [ ubuntu-18.04, windows-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run:
+          pip install -r dev_requirements.txt
+          pip install -r requirements.txt
+          pip install coveralls
+
+      - name: Run tests
+        run: pytest tests/unit/
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [ test ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Setup
+        run: npm install -g semantic-release @semantic-release/github @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/git @semantic-release/release-notes-generator semantic-release-pypi
+
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install setuptools
+        run: python -m pip install --upgrade setuptools wheel twine
+
+      - name: Install pypa/build
+        run: >-
+          python -m
+          pip install
+          build
+          --user
+
+      - name: Build a binary wheel and a source tarball
+        run: >-
+          python -m
+          build
+          --sdist
+          --wheel
+          --outdir dist/
+
+      - name: Updating version
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+          PYPI_REPO_URL: "https://test.pypi.org/legacy/"
+        run: npx semantic-release --debug --branches develop
+
+
+#      - name: Publish distribution to Test PyPI
+#        uses: pypa/gh-action-pypi-publish@master
+#        with:
+#          password: ${{ secrets.PYPI_TOKEN }}
+#          repository_url: https://test.pypi.org/legacy/
